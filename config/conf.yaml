@@ -1,0 +1,7 @@
+web_sess_securekey: "thisisasecurekeyfortesthahahahalskjdla"
+web_maxage: 604800
+https_port : 8443
+ssl_cert: ./config/cert/webhook.cert
+ssl_key: ./config/cert/webhook.key
+verbose : false
+devmode: true
