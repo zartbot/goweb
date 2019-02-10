@@ -4,6 +4,9 @@ import (
 	"context"
 	"math/rand"
 	"time"
+
+	"github.com/sirupsen/logrus"
+	"github.com/zartbot/goweb/src/server/middleware/jwt"
 )
 
 type resolver struct {
@@ -22,8 +25,13 @@ func NewResolver() *resolver {
 	return r
 }
 
-func (r *resolver) Hello() string {
-	return "Hello world!"
+func (r *resolver) Hello(ctx context.Context) string {
+	var a *jwt.TokenClaims
+	v := ctx.Value("Authorization")
+	if v != nil {
+		a = v.(*jwt.TokenClaims)
+	}
+	return "Hello " + a.DisplayName
 }
 
 func (r *resolver) SayHello(args struct{ Msg string }) *helloSaidEvent {
@@ -78,6 +86,7 @@ func (r *resolver) broadcastHelloSaid() {
 func (r *resolver) HelloSaid(ctx context.Context) <-chan *helloSaidEvent {
 	c := make(chan *helloSaidEvent)
 	// NOTE: this could take a while
+	logrus.Warn(ctx.Value("userinfo"))
 	r.helloSaidSubscriber <- &helloSaidSubscriber{events: c, stop: ctx.Done()}
 
 	return c

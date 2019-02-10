@@ -1,4 +1,4 @@
-import { ApolloLink, split } from 'apollo-link';
+import { ApolloLink, split, concat } from 'apollo-link';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
@@ -10,26 +10,23 @@ import url from '../../_api';
 const graphqlHTTP_URI = url.graphql_http();
 const graphqlWS_URI = url.graphql_ws();
 
+
+
+const token = localStorage.getItem('AUTH_TOKEN') || null
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  operation.setContext({
+    headers: {
+      authorization: token,
+    }
+  });
+  return forward(operation);
+})
+
 const httpLink = new HttpLink({ 
   uri: graphqlHTTP_URI,
   credentials: 'same-origin' 
 });
-
-/* 使用Token并存储在localstorage可能不安全，因此只是在此处留下注释
-
-const middlewareAuthLink = new ApolloLink((operation, forward) => {
-  const token = localStorage.getItem('AUTH_TOKEN');
-  const authorizationHeader = token ? `Bearer ${token}` : null;
-  operation.setContext({
-    headers: {
-      authorization: authorizationHeader,
-    },
-  })
-  return forward(operation);
-})
-
-const httpLinkWithAuthToken = middlewareAuthLink.concat(httpLink)
-*/
 
 const wsLink = new WebSocketLink({
   uri: graphqlWS_URI,
@@ -37,7 +34,7 @@ const wsLink = new WebSocketLink({
   options: {
     reconnect: true,
     connectionParams: {
-      authToken: localStorage.getItem('AUTH_TOKEN'),
+      AUTH_TOKEN: localStorage.getItem('AUTH_TOKEN'),
     },
   }
 })
@@ -61,11 +58,11 @@ const link = split(
   },
   wsLink,
   httpLink,
-  //httpLinkWithAuthToken,
 )
 
+
 const client = new ApolloClient({
-  link,
+  link: concat(authMiddleware, link),
   cache: new InMemoryCache(),
   //connectToDevTools: true, #debug for apollo connection
 });

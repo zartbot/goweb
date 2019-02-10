@@ -39,7 +39,7 @@ export const actions = {
         dispatch(appActions.finishRequest());
         // 请求返回成功，保存登录用户的信息，否则，设置全局错误信息
         if (response.data.status == 1) {
-          //_localstorage.setStorage('AUTH_TOKEN',response.data.token);
+          _localstorage.setStorage('AUTH_TOKEN',"Bearer " + response.data.data.token);
           dispatch(actions.setLoginInfo(response.data.data));
         } else {
           console.log(response.data.errmsg)
@@ -61,7 +61,7 @@ export const actions = {
       console.log("startlogout")
       return axios.post(url.logout(),{
         headers: {
-            "Authorization" :"Bearer " + token,
+            "Authorization" :token,
         }
       }).then(response => {
         console.log("Logout Result:", response.data);
@@ -69,7 +69,7 @@ export const actions = {
         dispatch(appActions.finishRequest());
         // 请求返回成功，保存登录用户的信息，否则，设置全局错误信息
         if (response.data.status == 1 ) {
-          //_localstorage.removeStorage('AUTH_TOKEN');
+          _localstorage.removeStorage('AUTH_TOKEN');
           dispatch(actions.logout());
         } else {
           dispatch(appActions.setError(response.data.errmsg));
@@ -95,7 +95,7 @@ export const actions = {
         dispatch(appActions.finishRequest());
         // 请求返回成功，保存登录用户的信息，否则，设置全局错误信息
         if (response.data.status == 1 ) {
-          //_localstorage.setStorage('AUTH_TOKEN',response.data.token);
+          _localstorage.setStorage('AUTH_TOKEN',"Bearer " + response.data.data.token);
           dispatch(actions.updateStore(response.data.data));
           return "success";
         } else {

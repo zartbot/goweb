@@ -109,6 +109,10 @@ func (j *JWT) keyLookup(token *jwt.Token) (interface{}, error) {
 
 // ParseToken is used to parse token
 func (j *JWT) ParseToken(tokenString string) (*TokenClaims, error) {
+	if strings.Contains(tokenString, "Bearer ") {
+		sp := strings.Split(tokenString, "Bearer ")
+		tokenString = sp[1]
+	}
 	token, err := jwt.ParseWithClaims(tokenString, &TokenClaims{}, j.keyLookup)
 	if err != nil {
 		return nil, fmt.Errorf("token error: %+v", err)
