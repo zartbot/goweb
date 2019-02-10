@@ -86,7 +86,7 @@ func (r *resolver) broadcastHelloSaid() {
 func (r *resolver) HelloSaid(ctx context.Context) <-chan *helloSaidEvent {
 	c := make(chan *helloSaidEvent)
 	// NOTE: this could take a while
-	logrus.Warn(ctx.Value("userinfo"))
+	logrus.Warn(ctx.Value("Authorization"))
 	r.helloSaidSubscriber <- &helloSaidSubscriber{events: c, stop: ctx.Done()}
 
 	return c

@@ -1,4 +1,4 @@
-package graphqlws
+package graphqlauth
 
 import (
 	"context"
@@ -21,13 +21,7 @@ var upgrader = websocket.Upgrader{
 // NewHandlerFunc returns an http.HandlerFunc that supports GraphQL over websockets
 func NewHandlerFunc(svc connection.GraphQLService, httpHandler http.Handler, j *jwt.JWT) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		tokenString := r.Header.Get("Authorization")
-		claims, err := j.ParseToken(tokenString)
-		if err != nil {
-			logrus.Warn(err)
-			w.WriteHeader(401)
-			return
-		}
+
 		for _, subprotocol := range websocket.Subprotocols(r) {
 			if subprotocol == "graphql-ws" {
 				ws, err := upgrader.Upgrade(w, r, nil)
@@ -44,7 +38,13 @@ func NewHandlerFunc(svc connection.GraphQLService, httpHandler http.Handler, j *
 				return
 			}
 		}
-
+		tokenString := r.Header.Get("Authorization")
+		claims, err := j.ParseToken(tokenString)
+		if err != nil {
+			logrus.Warn(err)
+			w.WriteHeader(401)
+			return
+		}
 		// Fallback to HTTP
 		httpHandler.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), "Authorization", claims)))
 	}

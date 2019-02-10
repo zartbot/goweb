@@ -6,6 +6,8 @@ import (
 	"errors"
 	"fmt"
 	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
 type operationMessageType string
@@ -166,18 +168,18 @@ func (conn *connection) readLoop(ctx context.Context, send sendFunc) {
 				conn.close()
 				continue
 			}
-			/*
-				authToken, valid := initMsg["AUTH_TOKEN"]
-				if !valid {
-					ep := errPayload(fmt.Errorf("AUTH_TOKEN Header missing"))
-					send("", typeConnectionError, ep)
-					conn.close()
-					continue
-				}
-				if authToken != nil {
-					logrus.Warn(authToken.(string))
-				}
-			*/
+
+			authToken, valid := initMsg["AUTH_TOKEN"]
+			if !valid {
+				ep := errPayload(fmt.Errorf("AUTH_TOKEN Header missing"))
+				send("", typeConnectionError, ep)
+				conn.close()
+				continue
+			}
+			if authToken != nil {
+				logrus.Warn(authToken.(string))
+				ctx = context.WithValue(ctx, "Authorization", authToken)
+			}
 			send("", typeConnectionAck, nil)
 
 		case typeStart:

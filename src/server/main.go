@@ -7,8 +7,8 @@ import (
 
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
+	"github.com/graph-gophers/graphql-transport-ws/graphqlws"
 	"github.com/zartbot/goweb/src/server/gql"
-	"github.com/zartbot/goweb/src/server/gql/graphqlws"
 	"github.com/zartbot/goweb/src/server/gql/schema"
 	"github.com/zartbot/goweb/src/server/middleware/jwt"
 
@@ -87,7 +87,8 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		graphQLHandler := graphqlws.NewHandlerFunc(s, &relay.Handler{Schema: s}, jwtoken)
+		//graphQLHandler := graphqlauth.NewHandlerFunc(s, &relay.Handler{Schema: s}, jwtoken)
+		graphQLHandler := graphqlws.NewHandlerFunc(s, &relay.Handler{Schema: s})
 		app.POST("/api/graphql", gin.WrapF(graphQLHandler))
 		app.GET("/api/graphql", gin.WrapF(graphQLHandler))
 
