@@ -1,0 +1,39 @@
+
+$percentile_1:rgba(160, 3, 165, 0.99);
+$percentile_2:rgba(167, 4, 26, 0.99);
+$percentile_3:rgba(158, 108, 1, 0.99);
+$percentile_4:rgba(199, 152, 0, 0.99);
+$percentile_5:rgba(158, 194, 0, 0.99);
+$percentile_6:rgba(63, 194, 11, 0.99);
+$percentile_7:rgba(5, 168, 160, 0.99);
+$percentile_8:rgba(31, 80, 243, 0.99);
+
+
+.pct_1 {
+    color: $percentile_1;
+}
+
+.pct_2 {
+    color: $percentile_2;
+}
+
+.pct_3 {
+    color: $percentile_3;
+}
+
+.pct_4 {
+    color: $percentile_4;
+}
+
+.pct_5 {
+    color: $percentile_5;
+}
+
+.pct_6 {
+    color: $percentile_6;
+}
+
+
+.pct_7 {
+    color: $percentile_7;
+}

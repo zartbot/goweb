@@ -42,7 +42,6 @@ export const actions = {
           _localstorage.setStorage('AUTH_TOKEN',"Bearer " + response.data.data.token);
           dispatch(actions.setLoginInfo(response.data.data));
         } else {
-          console.log(response.data.errmsg)
           dispatch(appActions.setError(response.data.errmsg));
         }
       }).catch(error => {
@@ -57,14 +56,12 @@ export const actions = {
   requestlogout: (token) => {
     return dispatch => {
       // 每个API请求开始前，发送app模块定义的startRequest action
-      dispatch(appActions.startRequest());    
-      console.log("startlogout")
+      dispatch(appActions.startRequest());   
       return axios.post(url.logout(),{
         headers: {
             "Authorization" :token,
         }
       }).then(response => {
-        console.log("Logout Result:", response.data);
         // 每个API请求结束后，发送app模块定义的finishRequest action
         dispatch(appActions.finishRequest());
         // 请求返回成功，保存登录用户的信息，否则，设置全局错误信息

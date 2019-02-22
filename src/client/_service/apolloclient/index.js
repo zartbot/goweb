@@ -12,9 +12,10 @@ const graphqlWS_URI = url.graphql_ws();
 
 
 
-const token = localStorage.getItem('AUTH_TOKEN') || null
+
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
+  const token = localStorage.getItem('AUTH_TOKEN') || null
   operation.setContext({
     headers: {
       authorization: token,

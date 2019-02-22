@@ -47,20 +47,15 @@ let default_option = {
                     tiled:'tiled',
                 },
                 type: ['line', 'bar', 'stack', 'tiled']
-            },
-            saveAsImage: {
+            },            saveAsImage: {
                 title:'save as image',
             }
         },
-
         right:"40px"
     },
     xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        axisLabel: {
-           
-        },
+        type: 'category', 
+        boundaryGap: true,
         data: []
     },
     yAxis: {
@@ -71,12 +66,12 @@ let default_option = {
 
 
 
-export default class TimeSeriesBar extends React.Component {
+export default class TimeSeriesLine extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            level: "",
+            level: "", 
         };
         this.initPie = this.initPie.bind(this);
     }
@@ -92,7 +87,8 @@ export default class TimeSeriesBar extends React.Component {
     initPie() {
         let myChart = echarts.init(this.ID); //初始化echarts
 
-        let option = default_option;
+        let option = new Object();
+        option = default_option;
         option.title.text = this.props.title;
         option.legend.data = this.props.legend;
         option.xAxis.data = this.props.xAxis;
@@ -100,21 +96,52 @@ export default class TimeSeriesBar extends React.Component {
 
         let data = this.props.data;
         let idx = 0;
+
         option.series =[];
         if (data instanceof Array) {
             data.map((orig) => {
                 let item = new Object();
                 item.name = this.props.legend[idx];
-                item.type = 'bar';
+                item.type = 'line';
                 if (this.props.stack == "enable") {
                     item.stack = "sum";
                 } else {
                     item.stack = this.props.legend[idx];
                 }
+                if (this.props.type == "bar") {
+                    item.type='bar';
+                    item.itemStyle = new Object();
+
+                item.large = true;
+                item.itemStyle.opacity = 0.9;
+                } else {
+                    item.symbol ="none";
+                    item.smooth = false;
+                    item.lineStyle = new Object();
+                    item.lineStyle.opacity = 0.8;
+                    item.lineStyle.width = 1.5;
+                    
+                }
+                if (this.props.type == "area") {
+                    let areaobj = new Object();
+                    areaobj.opacity = 0.3;
+                    item.areaStyle = areaobj;
+                }
                 item.data = orig;
+
+
                 option.series.push(item);
                 idx++;
             });
+        }
+        if (idx > 0) {
+        if (this.props.showtotal == "enable"){
+            let label = new Object();
+            label.normal = new Object();
+            label.normal.show = true;
+            label.normal.position = 'top';            
+            option.series[idx-1].label = label;
+          }
         }
 
         //设置options

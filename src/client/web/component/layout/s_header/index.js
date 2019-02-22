@@ -32,10 +32,10 @@ class LayoutHeader extends React.Component {
 
   LogOutConfirm () {
     confirm({
-      title: "是否退出系统?",
-      content: '继续退出请点击[确认]按钮，或者取消',
-      okText:"确认",
-      cancelText:"取消",
+      title: "Sign Out?",
+      content: 'Please press[OK]Button，Or [Cancel]',
+      okText:"OK",
+      cancelText:"Cancel",
       onOk:()=>{
         this.setState({
             redirectToLogout: true

@@ -9,7 +9,7 @@ class Logo extends React.PureComponent {
   render() {
     return (
       <div className={this.props.collapsed ? "logo-collapsed" : "logo-normal"}>
-        <Link to="/" className="logo-font"> {this.props.collapsed ? 'PT' : 'PeentOS' } </Link>
+        <Link to="/" className="logo-font"> {this.props.collapsed ? 'NeOS' : 'Edge OS' } </Link>
       </div>
     );
   }

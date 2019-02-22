@@ -16,7 +16,7 @@ class SignUPForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                //console.log('Received values of form: ', values);
                 axios.post('/auth/register', values).then( (response)=>{
                     //console.log(response.data);
                     if (response.data.status === 1) {
@@ -27,7 +27,7 @@ class SignUPForm extends React.Component {
                     }
                 }).catch(function(error) {
                     message.error('some error occur on server side～');
-                    console.log(error);
+                  //  console.log(error);
                 });
             } else {
                 message.error(err);

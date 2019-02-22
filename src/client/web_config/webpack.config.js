@@ -26,7 +26,6 @@ module.exports = {
         //vendor_4: ['antd'] remove antd as sperate vendor could accelerate package size.
     },
     output: {
-        //path: path.resolve(__dirname, '../../../../dist'),
         path:path.resolve(__dirname, '../../../build/dist'),
         publicPath: '/',
         filename: 'js/[name].[hash].js',
@@ -107,7 +106,7 @@ module.exports = {
                     loader: 'url-loader',
                     options: {
                         limit: 8192,
-                        name: 'resource/[name].[ext]'
+                        name: 'assets/[name].[hash].[ext]'
                     }
                 }]
             },
@@ -118,7 +117,7 @@ module.exports = {
                     loader: 'url-loader',
                     options: {
                         limit: 8192,
-                        name: 'resource/[name].[ext]'
+                        name: 'assets/[name].[hash].[ext]'
                     }
                 }]
             }

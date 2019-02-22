@@ -7,6 +7,7 @@ import { withApollo } from 'react-apollo';
 import TransitionAnimation from '../../component/util/transition';
 
 import { actions as authActions, getLoggedUser } from "../../../_service/reduxstore/modules/auth";
+import CiscoLogo from "./assets/cisco_logo.png";
 
 import './index.scss';
 
@@ -73,10 +74,12 @@ class LoginForm extends React.Component {
         <TransitionAnimation>
         <div className="loginDIV">
             <div className="loginform">
-                <h1>PeentOS </h1>
+           <img src={CiscoLogo} width="60%"/>
+           <p/>
+                <h1>Nimble EdgeOS </h1>
                 <form onSubmit={this.handleSubmit}>
                   <input className="login-input" type="text" value={this.state.userid}
-                      onChange={this.handleUseridInput} placeholder="Username/Email/Phone" required="required" ref={this.inputRef} />
+                      onChange={this.handleUseridInput} placeholder="Username / Email / Phone" required="required" ref={this.inputRef} />
                   <input className="login-input" type="password" value={this.state.password}
                        onChange={this.handlePasswordInput} placeholder="Password" required="required"/>
                   <button className="btn btn-primary btn-block btn-large"  type="submit" >  Login </button>

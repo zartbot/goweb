@@ -3,10 +3,12 @@ import Immutable from "immutable";
 
 import auth from "./auth";
 import app  from "./app";
+import filter  from "./filter";
 
 const rootReducer = combineReducers({
   app,
   auth,
+  filter,
 });
 
 export default rootReducer;

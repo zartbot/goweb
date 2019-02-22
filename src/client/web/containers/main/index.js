@@ -9,6 +9,7 @@ import connectRoute  from '../../../_util/connectRoute';
 import '../login/index.scss';
 
 const Home = connectRoute(asyncComponent(() => import("../../pages/home")));
+const AppPerformance = connectRoute(asyncComponent(() => import("../../pages/app_performance/index.jsx")));
 const User = connectRoute(asyncComponent(() => import("../../pages/user")));
 const HoldTable = connectRoute(asyncComponent(() => import("../../pages/hold_table")));
 const ClearenceTable = connectRoute(asyncComponent(() => import("../../pages/clearence")));
@@ -67,6 +68,7 @@ class Main extends React.Component{
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Redirect exact from="/order" to="/order/index"/>
+                    <Route path="/app_qoe" component={AppPerformance}/>
                     <Route path="/user" component={User}/>
                     <Route path="/hold_table" component={HoldTable}/>
                     <Route path="/clearence" component={ClearenceTable}/>

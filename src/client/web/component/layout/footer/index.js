@@ -9,7 +9,7 @@ class LayoutFooter extends React.Component {
     
     return (
           <Footer style={{ textAlign: 'center' }}>
-            Copyright PeentOS ©2018 Created by helsman.
+            Copyright  ©2018 Created by helsman.
           </Footer>
     );
   }

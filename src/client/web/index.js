@@ -10,7 +10,7 @@ import App from "./containers/app";
 
 
 const store = configureStore();
-//persistStore(store);
+persistStore(store,{blacklist: ['auth']});
 
 ReactDOM.render(
   

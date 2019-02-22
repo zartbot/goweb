@@ -6,26 +6,21 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/toolbox';
 import 'echarts/lib/component/grid';
-import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/bar';
 
 let default_option = {
     title: {
         text: ''
     },
-    tooltip : {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'cross',
-            label: {
-                backgroundColor: '#6a7985'
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
-        }
-    },
+        },
     animation: false,
     legend: {
         data: [],
-        show: true
     },
     grid: {
         left: '3%',
@@ -33,45 +28,20 @@ let default_option = {
         bottom: '3%',
         containLabel: true
     },
-    toolbox: {
-        feature: {            
-            dataView:{
-                title: "dataview",
-                lang: ['dataview', 'close', 'refresh'],
-            },
-            magicType: {
-                title:{
-                    line:'line',
-                    bar:'bar',
-                    stack:'stack',
-                    tiled:'tiled',
-                },
-                type: ['line', 'bar', 'stack', 'tiled']
-            },
-            saveAsImage: {
-                title:'save as image',
-            }
-        },
-
-        right:"40px"
-    },
     xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        axisLabel: {
-           
-        },
-        data: []
+        type: 'value',
+        name:'',
     },
     yAxis: {
-        type: 'value'
+        type: 'category',
+        data: [],
     },
     series: []
 };
 
 
 
-export default class TimeSeriesBar extends React.Component {
+export default class HBar extends React.Component {
 
     constructor(props) {
         super(props);
@@ -95,29 +65,35 @@ export default class TimeSeriesBar extends React.Component {
         let option = default_option;
         option.title.text = this.props.title;
         option.legend.data = this.props.legend;
-        option.xAxis.data = this.props.xAxis;
-        option.yAxis.name = this.props.yAxisName;
+        option.xAxis.name = this.props.unit;
+        option.yAxis.data = [];
 
         let data = this.props.data;
-        let idx = 0;
+        
         option.series =[];
+        
+        option.legend.data.map((value)=>{
+            let item = new Object();
+            item.name = value;
+            item.type = 'bar';
+            item.stack = "sum";
+            item.data  =[];
+            item.itemStyle = new Object();
+            item.large = true;
+            item.itemStyle.opacity = 0.9;
+            option.series.push(item);
+        });
+
         if (data instanceof Array) {
             data.map((orig) => {
-                let item = new Object();
-                item.name = this.props.legend[idx];
-                item.type = 'bar';
-                if (this.props.stack == "enable") {
-                    item.stack = "sum";
-                } else {
-                    item.stack = this.props.legend[idx];
+                for (let idx = 0 ;idx < option.series.length ; idx++){
+                    option.series[idx].data.push(orig.value[idx]);
                 }
-                item.data = orig;
-                option.series.push(item);
-                idx++;
+                option.yAxis.data.push(orig.key);
             });
         }
 
-        //设置options
+       //设置options
         myChart.setOption(option);
         window.onresize = function () {
             myChart.resize();
