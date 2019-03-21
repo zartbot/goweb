@@ -12,6 +12,7 @@ import (
 	"github.com/zartbot/goweb/src/server/gql"
 	"github.com/zartbot/goweb/src/server/gql/schema"
 	"github.com/zartbot/goweb/src/server/middleware/jwt"
+	"github.com/zartbot/goweb/src/vty"
 
 	"github.com/zartbot/goweb/src/server/api/auth"
 	"github.com/zartbot/goweb/src/server/model"
@@ -110,6 +111,8 @@ func main() {
 			})
 		*/
 
+		app.GET("/api/vty", vty.VtyConnection)
+
 		soIO, err := socketio.NewServer(nil)
 		if err != nil {
 			panic(err)
@@ -132,7 +135,7 @@ func main() {
 			fmt.Printf("[ WebSocket ] Error : %v", err.Error())
 		})
 
-		app.GET("/socket.io/", gin.WrapH(soIO))
+		app.GET("/socket.io/", auth.IsAuthenticated, gin.WrapH(soIO))
 
 		app.NoRoute(func(c *gin.Context) {
 			c.HTML(200, "index.html", nil)

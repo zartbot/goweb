@@ -165,6 +165,11 @@ module.exports = {
         contentBase: path.resolve(__dirname, '../../../build/dist'),
         proxy: [
             {
+	        path: '/api/vty*',
+                target: 'https://localhost:8443',
+                secure: false,
+                ws: true,
+            },{
                 path: '/api/*',
                 target: 'https://localhost:8443',
                 secure: false,

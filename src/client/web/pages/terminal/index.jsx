@@ -1,30 +1,32 @@
 import React from 'react';
 import socketIOClient from "socket.io-client";
 import Content from '../../component/layout/content';
-import WebsocketURI from '../../../_api';
+import ws_uri_hdr  from '../../../_api';
 import XtermContainer from '../../component/xterm/xterm.jsx';
 
 
-const socket = socketIOClient(WebsocketURI);
+
+//const socket = socketIOClient(WebsocketURI);
+
+const websocket = new WebSocket(ws_uri_hdr.ws_uri_hdr+"/api/vty");
 
 class XtermApp extends React.Component {
 
     constructor(props) {
         super(props);
-
+        
         this.term1 = null;
 
     }
 
     componentDidMount() {
         let term = this.term1.getTerm();
-        term.on("data", function (data) {
-            socket.emit('msg', data);
-        });
-        socket.on("msg", function (data) {
-            console.log(data);
-            term.write(data);
-        });
+
+        
+
+        term.attach(websocket, true,true);
+        
+        
     }
 
 

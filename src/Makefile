@@ -7,9 +7,9 @@ GOARMBUILD=/opt/golang/gosrc/goarm/bin/go build
 #LDFLAGS = -s -w
 #ld flags -s -w is used to remove symbolink from package
 BINARY_NAME=web
-BINARY_PATH=../../build
-CONFIG_PATH=../../config
-WEB_PATH= ../../dist
+BINARY_PATH=../build
+CONFIG_PATH=../config
+WEB_PATH= ../dist
 
 
 all: build
@@ -23,7 +23,7 @@ clean:
 	cp -r $(CONFIG_PATH) $(BINARY_PATH)
 	cp -r $(WEB_PATH) $(BINARY_PATH)
 schema:
-	go generate ./gql/schema
+	go generate ./server/gql/schema
 run:
 	$(GOBUILD) -o $(BINARY_NAME) -v ./...
 	./$(BINARY_NAME)
