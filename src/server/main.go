@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"sync"
 
+	socketio "github.com/googollee/go-socket.io"
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 	"github.com/graph-gophers/graphql-transport-ws/graphqlws"
@@ -108,6 +109,31 @@ func main() {
 				c.HTML(200, "index.html", nil)
 			})
 		*/
+
+		soIO, err := socketio.NewServer(nil)
+		if err != nil {
+			panic(err)
+		}
+
+		soIO.On("connection", func(so socketio.Socket) {
+			fmt.Println("on connection")
+			so.Join("chat")
+			so.On("msg", func(msg string) {
+				logrus.Warn(msg)
+				so.BroadcastTo("chat", "msg", msg)
+			})
+
+			so.On("disconnection", func() {
+				fmt.Println("on disconnect")
+			})
+		})
+
+		soIO.On("error", func(so socketio.Socket, err error) {
+			fmt.Printf("[ WebSocket ] Error : %v", err.Error())
+		})
+
+		app.GET("/socket.io/", gin.WrapH(soIO))
+
 		app.NoRoute(func(c *gin.Context) {
 			c.HTML(200, "index.html", nil)
 		})

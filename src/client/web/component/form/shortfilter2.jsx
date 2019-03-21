@@ -40,9 +40,7 @@ class ShortFilter extends React.Component {
                      <Form.Item >
                          <Input type="text" style={{ width: 200 }} placeholder="SensorID" value={this.state.sensorid} onChange={this.onChangeIP} onPressEnter={this.handleUpdate}/> 
                      </Form.Item>
-                     <Form.Item>
-                         <DateRange />
-                     </Form.Item>
+
                      <Form.Item>
                          <Button type="primary" onClick={this.handleUpdate}>OK</Button>
                      </Form.Item>
@@ -65,13 +63,3 @@ const mapStateToProps = (state, props) => {
   };
   
 export default connect(mapStateToProps, mapDispatchToProps)(ShortFilter);
-/*
-                             <Option value="Source_City">City(LAN)</Option>
-                             <Option value="Source_Region">Region(LAN)</Option>
-                             <Option value="Source_Country">Country(LAN)</Option>
-                             <Option value="Source_ASN">ISP(LAN)</Option>
-                             <Option value="Destination_City">City(WAN)</Option>
-                             <Option value="Destination_Region">Region(WAN)</Option>
-                             <Option value="Destination_Country">Country(WAN)</Option>
-                             <Option value="Destination_ASN">ISP(WAN)</Option>
-                             */

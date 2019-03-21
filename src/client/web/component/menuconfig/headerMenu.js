@@ -84,7 +84,6 @@ const FOO = {
 const headerMenu = [
     UserMenu,
     MODIFY_TRADE_LOG,
-    FOO
 ];
 
 export default headerMenu;

@@ -97,7 +97,11 @@ export default class TimeSeriesBar extends React.Component {
         option.legend.data = this.props.legend;
         option.xAxis.data = this.props.xAxis;
         option.yAxis.name = this.props.yAxisName;
-
+        if (this.props.yscale == "enable") {
+            option.yAxis.scale = true;
+        } else {
+            option.yAxis.scale = false;
+        }
         let data = this.props.data;
         let idx = 0;
         option.series =[];

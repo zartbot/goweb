@@ -173,13 +173,28 @@ module.exports = {
                 target: 'https://localhost:8443',
                 secure: false,
             },{
+                path: '/css/*',
+                target: 'https://localhost:8443',
+                secure: false,
+            },{
+                path: '/fonts/*',
+                target: 'https://localhost:8443',
+                secure: false,
+            },{
+		    
                 path: '/file/*',
                 target: 'https://localhost:8443',
                 secure: false,
             },{
-                path: '/socket.io/*',
+                path: '/jslib/*',
                 target: 'https://localhost:8443',
                 secure: false,
+            },{
+
+                path: '/socket.io',
+                target: 'https://localhost:8443',
+                secure: false,
+                ws: true,
             },{
                 path:'/api/graphql' ,
                 target: 'wss://localhost:8443',

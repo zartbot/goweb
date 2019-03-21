@@ -92,7 +92,14 @@ export default class TimeSeriesLine extends React.Component {
         option.title.text = this.props.title;
         option.legend.data = this.props.legend;
         option.xAxis.data = this.props.xAxis;
+        option.xAxis.name = this.props.xAxisName;
         option.yAxis.name = this.props.yAxisName;
+        
+        if (this.props.yscale == "enable") {
+            option.yAxis.scale = true;
+        } else {
+            option.yAxis.scale = false;
+        }
 
         let data = this.props.data;
         let idx = 0;

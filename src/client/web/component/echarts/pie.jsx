@@ -83,12 +83,12 @@ export default class PieChart extends React.Component {
         option.legend.data =[];
         option.series[0].data =[];
         if (data instanceof Array) {
-            data.map((value) => {
-                let item = new Object();
-                option.legend.data.push(value.name);
-                option.series[0].data.push(value);
+            data.map((item) => {
+                option.legend.data.push(item.name);
+                option.series[0].data.push(item);
             });
         }
+
 
         //设置options
         myChart.setOption(option);

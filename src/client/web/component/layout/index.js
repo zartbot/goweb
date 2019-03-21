@@ -15,12 +15,20 @@ class ClientLayout extends React.Component {
     super(props);
     this.state = {
       collapsed: false,
+      offset : 200,
     };
   }
   
 
   onCollapse = (collapsed) => {
-    this.setState({ collapsed });
+    let offset = 200;
+    if (collapsed) {
+          offset = 75;
+    }
+    this.setState({ 
+      collapsed : collapsed,
+      offset:offset 
+  });
   }
   render() {
     //console.log(window.screen.width);
@@ -40,14 +48,15 @@ class ClientLayout extends React.Component {
       );
     }
     
+    
     return (
       <TransitionAnimation>
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}  >
+      <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}  style={{overflow:'auto',height:'100vh', position:'fixed', left:0,}} >
             <Logo collapsed={this.state.collapsed} />
             <LayoutSiderMenu userpriv={this.props.userpriv}/>
        </Sider>
-        <Layout>
+        <Layout style={{marginLeft: this.state.offset}} >
             <LayoutHeader displayname={this.props.displayname} userpriv={this.props.userpriv} />
             <Content style={{ margin: '0 16px' }}>
             {this.props.children} 
