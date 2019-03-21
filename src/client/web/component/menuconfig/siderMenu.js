@@ -3,44 +3,15 @@
 //每一个key构成了导航用的URL，有点hack，管他呢～
 
 
-const Nimble_Voltage = {
-    key: 'voltage',
-    name: 'Voltage',
+const Xterm = {
+    key: 'terminal',
+    name: 'terminal',
     icon: 'area-chart'
 };
 
 
-const Nimble_Current = {
-    key: 'current',
-    name: 'Current',
-    icon: 'dot-chart'
-};
-
-const Nimble_Energy = {
-    key: 'energy',
-    name: 'Energy',
-    icon: 'bar-chart'
-};
-
-const Nimble_Quality = {
-    key: 'quality',
-    name: 'Quality',
-    icon: 'line-chart'
-};
-
-const Nimble_HarmonicWave = {
-    key: 'harmonicwave',
-    name: 'Harmonic Wave',
-    icon: 'fund'
-};
-
-
 const sidebarMenu = [
-    Nimble_Voltage,
-    Nimble_Current,
-    Nimble_Energy,
-    Nimble_Quality,
-    Nimble_HarmonicWave,
+    Xterm,
  ];
 
 export default sidebarMenu;

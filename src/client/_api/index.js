@@ -17,6 +17,7 @@ let HTTP_URL_HDR = HTTP_PROTOCOL + "://" + Server_IP_PORT ;
 let WS_URL_HDR = WEBSOCKET_PROTOCOL + "://"+ Server_IP_PORT;
 
 export default {
+    WebsocketURI: WS_URL_HDR,
     login: () => "/auth/login",
     logout: () =>  "/auth/logout",
     updatetoken: () =>  "/auth/token",
