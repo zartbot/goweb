@@ -32,7 +32,7 @@ class XtermApp extends React.Component {
 
     render() {
         return <Content>
-            <XtermContainer ref={(term1) => { this.term1 = term1; }} id="msg" />
+            <XtermContainer ref={(term1) => { this.term1 = term1; }} id="msg"/>
         </Content>;
 
     }

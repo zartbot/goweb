@@ -17,7 +17,13 @@ class XtermContainer extends React.Component {
         Terminal.applyAddon(attach); 
         let {id} = this.props;
         let terminalContainer = document.getElementById(id);
-        this.term = new Terminal({cursorBlink: true});
+        this.term = new Terminal({
+            cols: 120,
+            rows: 40,
+            cursorBlink: 5,
+            scrollback: 100,
+            tabStopWidth: 4
+        });
         this.term.open(terminalContainer);
         this.term.fit();
     }
@@ -27,7 +33,7 @@ class XtermContainer extends React.Component {
     }
 
     render() {
-        return <div id={this.props.id} />;
+        return <div id={this.props.id}  style={{height: 800}}/>;
     }
 
 }

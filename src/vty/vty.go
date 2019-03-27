@@ -52,7 +52,7 @@ func VtyConnection(c *gin.Context) {
 	if err != nil {
 		return
 	}
-	vty := sshvty.NewDevice("127.0.0.1", 22, "aaa", "aaa")
+	vty := sshvty.NewDevice("192.168.99.244", 22, "onep", "fuck")
 	vty.Connect()
 
 	defer ws.Close()
