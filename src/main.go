@@ -24,7 +24,7 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/zartbot/goflow/lib/metricbeat"
+	"github.com/zartbot/network/telemetry/goflow/lib/metricbeat"
 
 	"net/http"
 	_ "net/http/pprof"
