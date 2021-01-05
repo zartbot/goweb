@@ -24,7 +24,7 @@
     "apollo-link-state": "^0.4.1",
     "apollo-link-ws": "^1.0.8",
     "apollo-utilities": "^1.0.13",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-core": "^6.26.3",
     "babel-plugin-import": "^1.7.0",
     "babel-polyfill": "^6.26.0",
